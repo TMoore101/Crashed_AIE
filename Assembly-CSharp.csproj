@@ -56,7 +56,13 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+    <Compile Include="Assets\SimplicitySuite\First Person Controller - SimplicitySuite\Scripts\SS_FP_CameraController.cs" />
+    <Compile Include="Assets\SimplicitySuite\First Person Controller - SimplicitySuite\Scripts\SS_FP_CharacterController.cs" />
+    <Compile Include="Assets\SimplicitySuite\First Person Controller - SimplicitySuite\Scripts\SS_Keybinds.cs" />
+    <Compile Include="Assets\SimplicitySuite\FPS_Guns_PS\Classes\FPS_Gun.cs" />
+    <Compile Include="Assets\SimplicitySuite\FPS_Guns_PS\Scripts\GunManager.cs" />
+    <Compile Include="Assets\SimplicitySuite\FPS_Guns_PS\Classes\Gun_Types.cs" />
+    <Compile Include="Assets\SimplicitySuite\FPS_Guns_PS\Classes\Gun_Attachment.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
