@@ -1,0 +1,15 @@
+/Library/
+/Temp/
+/Obj/
+/Build/
+/Builds/
+/Logs/
+/UserSettings/
+
+/MemoryCaptures/
+
+/Recordings/
+
+.vs/
+
+.gradle/
