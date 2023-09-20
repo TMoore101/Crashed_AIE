@@ -118,6 +118,10 @@ namespace SimplicitySuite.FirstPersonController
         private bool canWallJump;
         private Vector3 wallNormal;
 
+        [HideInInspector]
+        public float joystickX;
+        public float joystickZ;
+
         private void Start()
         {
             //Get components
@@ -195,9 +199,9 @@ namespace SimplicitySuite.FirstPersonController
             float sideAxis = Input.GetAxisRaw(keybinds.joystickBinds.Find(k => k.name == "sideAxis").key);
             //MOVEMENT INPUTS
             //Increase inputZ by the acceleration amount every second when the back & forward keys are being held down
-            if (Input.GetKey(keybinds.keybinds.Find(k => k.name == "moveForward").key) && inputZ < 1 || forwardAxis > 0 && inputZ < 1)
+            if (Input.GetKey(keybinds.keybinds.Find(k => k.name == "moveForward").key) && inputZ < 1 || forwardAxis > 0 && inputZ < 1 || joystickZ > 0 && inputZ < 1)
                 inputZ += Time.deltaTime * acceleration;
-            else if (Input.GetKey(keybinds.keybinds.Find(k => k.name == "moveBack").key) && inputZ > -1 || forwardAxis < 0 && inputZ > -1)
+            else if (Input.GetKey(keybinds.keybinds.Find(k => k.name == "moveBack").key) && inputZ > -1 || forwardAxis < 0 && inputZ > -1 || joystickZ < 0 && inputZ > -1)
                 inputZ -= Time.deltaTime * acceleration;
             else
             {
@@ -210,9 +214,9 @@ namespace SimplicitySuite.FirstPersonController
             }
 
             //Increase inputX by the acceleration amount every second when the strafe keys are being held down
-            if (Input.GetKey(keybinds.keybinds.Find(k => k.name == "moveRight").key) && inputX < 1 || sideAxis < 0 && inputX < 1)
+            if (Input.GetKey(keybinds.keybinds.Find(k => k.name == "moveRight").key) && inputX < 1 || sideAxis < 0 && inputX < 1 || joystickX > 0 && inputX < 1)
                 inputX += Time.deltaTime * acceleration;
-            else if (Input.GetKey(keybinds.keybinds.Find(k => k.name == "moveLeft").key) && inputX > -1 || sideAxis > 0 && inputX > -1)
+            else if (Input.GetKey(keybinds.keybinds.Find(k => k.name == "moveLeft").key) && inputX > -1 || sideAxis > 0 && inputX > -1 || joystickX < 0 && inputX > -1)
                 inputX -= Time.deltaTime * acceleration;
             else
             {
