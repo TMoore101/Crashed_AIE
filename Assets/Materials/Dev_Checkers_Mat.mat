@@ -24,16 +24,14 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Dev_Checkers_Mat
-  m_Shader: {fileID: -6465566751694194690, guid: 8161db1533ebe554492f27d59423b9e3,
+  m_Shader: {fileID: -6465566751694194690, guid: 1a73dc27d78abec40be1fdde9cfa7605,
     type: 3}
-  m_ValidKeywords:
-  - _DISABLE_SSR_TRANSPARENT
-  m_InvalidKeywords:
-  - _NORMALMAP_TANGENT_SPACE
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2225
+  m_CustomRenderQueue: -1
   stringTagMap:
     MotionVector: User
   disabledShaderPasses:
@@ -212,6 +210,8 @@ Material:
     - _PPDMinSamples: 5
     - _PPDPrimitiveLength: 1
     - _PPDPrimitiveWidth: 1
+    - _QueueControl: 0
+    - _QueueOffset: 0
     - _RayTracing: 0
     - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0
@@ -219,7 +219,7 @@ Material:
     - _RenderQueueType: 1
     - _RequireSplitLighting: 0
     - _Roughness: 0
-    - _Scale: 5
+    - _Scale: 500
     - _Smoothness: 0.5
     - _SmoothnessRemapMax: 1
     - _SmoothnessRemapMin: 0
@@ -278,3 +278,16 @@ Material:
     - _UVMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
+--- !u!114 &8780034499291559134
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
