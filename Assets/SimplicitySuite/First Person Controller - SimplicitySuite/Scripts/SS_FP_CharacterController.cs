@@ -335,13 +335,13 @@ namespace SimplicitySuite.FirstPersonController
                 else
                 {
                     //Smoothly move the camera back to the default position
-                    Camera.main.transform.localPosition = Vector3.MoveTowards(Camera.main.transform.localPosition, new Vector3(0, 0.681225f, 0.1876417f), 0.5f * Time.deltaTime);
+                    Camera.main.transform.localPosition = Vector3.MoveTowards(Camera.main.transform.localPosition, new Vector3(0, 0, 0), 0.5f * Time.deltaTime);
 
                     //Smoothly move the headBobTime with the camera
                     headBobTime = Mathf.MoveTowards(headBobTime, 0, 5 * Time.deltaTime * Mathf.Abs(5 - headBobTime));
 
                     //If the camera has reached its default position, reset the headBob direction to up
-                    if (Camera.main.transform.localPosition == new Vector3(0, 0.681225f, 0.1876417f))
+                    if (Camera.main.transform.localPosition == new Vector3(0, 0, 0))
                         headBobUp = true;
                 }
                 //Move the camera along the headBobTime

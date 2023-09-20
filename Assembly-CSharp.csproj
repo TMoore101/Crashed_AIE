@@ -63,6 +63,13 @@
     <Compile Include="Assets\SimplicitySuite\FPS_Guns_PS\Scripts\GunManager.cs" />
     <Compile Include="Assets\SimplicitySuite\FPS_Guns_PS\Classes\Gun_Types.cs" />
     <Compile Include="Assets\SimplicitySuite\FPS_Guns_PS\Classes\Gun_Attachment.cs" />
+    <Compile Include="Assets\Managers\GameManager.cs" />
+    <Compile Include="Assets\Managers\WeaponManager.cs" />
+    <Compile Include="Assets\Weapons\Scripts\Bullet.cs" />
+    <Compile Include="Assets\SimplicitySuite\First Person Controller - SimplicitySuite\Scripts\PlayerHealth.cs" />
+    <Compile Include="Assets\Target\TargetHealth.cs" />
+    <Compile Include="Assets\SimplicitySuite\First Person Controller - SimplicitySuite\Scripts\Player_WeaponHandler.cs" />
+    <Compile Include="Assets\UI\GradientUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\HDRIs\SkySeries Freebie\Hdri setup.txt" />

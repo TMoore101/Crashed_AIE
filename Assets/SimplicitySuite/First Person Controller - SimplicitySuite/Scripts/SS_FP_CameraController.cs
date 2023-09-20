@@ -15,6 +15,8 @@ namespace SimplicitySuite.FirstPersonController
         [Header("Player")]
         [SerializeField] private Transform player;
 
+        public float MouseYSum;
+
         private void Start()
         {
             //Lock mouse to the center of the screen and hide it
@@ -26,6 +28,22 @@ namespace SimplicitySuite.FirstPersonController
             //Get mouseX & mouseY values * mouseSensitivity
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
             float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+            if (mouseY + MouseYSum >= 75)
+            {
+                transform.localEulerAngles = new Vector3(-75, transform.localEulerAngles.y, transform.localEulerAngles.z);
+                mouseY = 0;
+                MouseYSum = 75;
+            }
+            else if (mouseY + MouseYSum <= -75)
+            {
+                transform.localEulerAngles = new Vector3(75, transform.localEulerAngles.y, transform.localEulerAngles.z);
+                mouseY = 0;
+                MouseYSum = -75;
+            }
+            else if (Cursor.lockState == CursorLockMode.Locked)
+            {
+                MouseYSum += mouseY;
+            }
 
             //Reverse xRotation and clamp it to 90 degrees up & down
             xRotation -= mouseY;
