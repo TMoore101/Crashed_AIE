@@ -188,11 +188,16 @@ namespace SimplicitySuite.FirstPersonController
         //Movement function
         private void Movement()
         {
+            //float forwardAxis = Input.GetAxis(keybinds.joystickBinds.Find(k => k.name == "forwardAxis").key);
+            //forwardAxis = (forwardAxis - -1) / (1 - -1);
+            //forwardAxis = (forwardAxis + 1) / 2;
+            float forwardAxis = Input.GetAxisRaw(keybinds.joystickBinds.Find(k => k.name == "forwardAxis").key);
+            float sideAxis = Input.GetAxisRaw(keybinds.joystickBinds.Find(k => k.name == "sideAxis").key);
             //MOVEMENT INPUTS
             //Increase inputZ by the acceleration amount every second when the back & forward keys are being held down
-            if (Input.GetKey(keybinds.keybinds.Find(k => k.name == "moveForward").key) && inputZ < 1)
+            if (Input.GetKey(keybinds.keybinds.Find(k => k.name == "moveForward").key) && inputZ < 1 || forwardAxis > 0 && inputZ < 1)
                 inputZ += Time.deltaTime * acceleration;
-            else if (Input.GetKey(keybinds.keybinds.Find(k => k.name == "moveBack").key) && inputZ > -1)
+            else if (Input.GetKey(keybinds.keybinds.Find(k => k.name == "moveBack").key) && inputZ > -1 || forwardAxis < 0 && inputZ > -1)
                 inputZ -= Time.deltaTime * acceleration;
             else
             {
@@ -203,11 +208,11 @@ namespace SimplicitySuite.FirstPersonController
                 else
                     inputZ += Time.deltaTime * (-Mathf.Sign(inputZ) * deceleration);
             }
-
+            Debug.Log(inputZ);
             //Increase inputX by the acceleration amount every second when the strafe keys are being held down
-            if (Input.GetKey(keybinds.keybinds.Find(k => k.name == "moveRight").key) && inputX < 1)
+            if (Input.GetKey(keybinds.keybinds.Find(k => k.name == "moveRight").key) && inputX < 1 || sideAxis < 0 && inputX < 1)
                 inputX += Time.deltaTime * acceleration;
-            else if (Input.GetKey(keybinds.keybinds.Find(k => k.name == "moveLeft").key) && inputX > -1)
+            else if (Input.GetKey(keybinds.keybinds.Find(k => k.name == "moveLeft").key) && inputX > -1 || sideAxis > 0 && inputX > -1)
                 inputX -= Time.deltaTime * acceleration;
             else
             {
@@ -224,7 +229,7 @@ namespace SimplicitySuite.FirstPersonController
         private void Sprint()
         {
             //Increase sprintInput by the acceleration amount every second wehn the sprint key is held down
-            if (Input.GetKey(keybinds.keybinds.Find(k => k.name == "sprint").key) && sprintInput < 1 && !staminaRecharging)
+            if (Input.GetKey(keybinds.keybinds.Find(k => k.name == "sprint").key) && sprintInput < 1 && !staminaRecharging || Input.GetKeyDown(keybinds.keybinds.Find(k => k.name == "sprintController").key) && sprintInput < 1 && !staminaRecharging)
             {
                 sprintInput += Time.deltaTime * acceleration;
             }
@@ -239,7 +244,7 @@ namespace SimplicitySuite.FirstPersonController
             }
 
             //If the player is sprinting, start draining stamina
-            if (Input.GetKey(keybinds.keybinds.Find(k => k.name == "sprint").key) && inputX != 0 && !staminaRecharging || Input.GetKey(keybinds.keybinds.Find(k => k.name == "sprint").key) && inputZ != 0 && !staminaRecharging)
+            if (Input.GetKey(keybinds.keybinds.Find(k => k.name == "sprint").key) && inputX != 0 && !staminaRecharging && isGrounded || Input.GetKey(keybinds.keybinds.Find(k => k.name == "sprint").key) && inputZ != 0 && isGrounded && !staminaRecharging || Input.GetKeyDown(keybinds.keybinds.Find(k => k.name == "sprintController").key) && inputX != 0 && !staminaRecharging && isGrounded || Input.GetKeyDown(keybinds.keybinds.Find(k => k.name == "sprintController").key) && inputZ != 0 && !staminaRecharging && isGrounded)
                 drainingStamina = true;
             //If the player is no longer sprinting, stop draining stamina
             else
@@ -267,6 +272,20 @@ namespace SimplicitySuite.FirstPersonController
                         staminaHoldTimer = 0;
                     }
                 }
+                else if (Input.GetKeyDown(keybinds.keybinds.Find(k => k.name == "jumpController").key) && jumpCounter < jumpCount && !staminaRecharging && currentStamina >= staminaDrainJumping)
+                {
+                    yInput = jumpHeight;
+                    hasJumped = true;
+                    //Add to the jumpCounter
+                    jumpCounter++;
+
+                    //Decrease currentStamina by the staminaDrainJumping
+                    if (currentStamina > 0)
+                    {
+                        currentStamina -= staminaDrainJumping;
+                        staminaHoldTimer = 0;
+                    }
+                }
             }
             //If the player can not jump in the air, check if they jump and are grounded
             else
@@ -276,6 +295,20 @@ namespace SimplicitySuite.FirstPersonController
                 {
                     yInput = jumpHeight;
                     hasJumped = true;
+
+                    //Decrease currentStamina by the staminaDrainJumping
+                    if (currentStamina > 0)
+                    {
+                        currentStamina -= staminaDrainJumping;
+                        staminaHoldTimer = 0;
+                    }
+                }
+                else if (Input.GetKeyDown(keybinds.keybinds.Find(k => k.name == "jumpController").key) && isGrounded && !staminaRecharging && currentStamina >= staminaDrainJumping)
+                {
+                    yInput = jumpHeight;
+                    hasJumped = true;
+                    //Add to the jumpCounter
+                    jumpCounter++;
 
                     //Decrease currentStamina by the staminaDrainJumping
                     if (currentStamina > 0)

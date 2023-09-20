@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 295.0904, g: 513.58594, b: 808.9082, a: 1}
+  m_IndirectSpecularColor: {r: 296.74408, g: 514.9214, b: 809.624, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2867,8 +2867,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 4.9752197, y: 0}
-  m_SizeDelta: {x: 19.9503, y: 0}
+  m_AnchoredPosition: {x: -1.1, y: 0}
+  m_SizeDelta: {x: 7.02, y: 8.96}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1475609295
 MonoBehaviour:
@@ -2926,7 +2926,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.89591825, g: 0.9688364, b: 0, a: 1}
+  m_Color: {r: 0.8976466, g: 0.9605261, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3511,6 +3511,56 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4093743660204997780, guid: 87713d61ca690514eac8885684741a31,
+        type: 3}
+      propertyPath: keybinds.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4093743660204997780, guid: 87713d61ca690514eac8885684741a31,
+        type: 3}
+      propertyPath: joystickBinds.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4093743660204997780, guid: 87713d61ca690514eac8885684741a31,
+        type: 3}
+      propertyPath: keybinds.Array.data[7].key
+      value: 330
+      objectReference: {fileID: 0}
+    - target: {fileID: 4093743660204997780, guid: 87713d61ca690514eac8885684741a31,
+        type: 3}
+      propertyPath: keybinds.Array.data[8].key
+      value: 338
+      objectReference: {fileID: 0}
+    - target: {fileID: 4093743660204997780, guid: 87713d61ca690514eac8885684741a31,
+        type: 3}
+      propertyPath: keybinds.Array.data[7].name
+      value: jumpController
+      objectReference: {fileID: 0}
+    - target: {fileID: 4093743660204997780, guid: 87713d61ca690514eac8885684741a31,
+        type: 3}
+      propertyPath: keybinds.Array.data[8].name
+      value: sprintController
+      objectReference: {fileID: 0}
+    - target: {fileID: 4093743660204997780, guid: 87713d61ca690514eac8885684741a31,
+        type: 3}
+      propertyPath: joystickBinds.Array.data[0].key
+      value: ControllerForward
+      objectReference: {fileID: 0}
+    - target: {fileID: 4093743660204997780, guid: 87713d61ca690514eac8885684741a31,
+        type: 3}
+      propertyPath: joystickBinds.Array.data[1].key
+      value: ControllerSide
+      objectReference: {fileID: 0}
+    - target: {fileID: 4093743660204997780, guid: 87713d61ca690514eac8885684741a31,
+        type: 3}
+      propertyPath: joystickBinds.Array.data[0].name
+      value: forwardAxis
+      objectReference: {fileID: 0}
+    - target: {fileID: 4093743660204997780, guid: 87713d61ca690514eac8885684741a31,
+        type: 3}
+      propertyPath: joystickBinds.Array.data[1].name
+      value: sideAxis
       objectReference: {fileID: 0}
     - target: {fileID: 4160005362823735633, guid: 87713d61ca690514eac8885684741a31,
         type: 3}

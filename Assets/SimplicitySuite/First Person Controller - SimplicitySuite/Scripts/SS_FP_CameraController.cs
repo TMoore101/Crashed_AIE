@@ -28,6 +28,11 @@ namespace SimplicitySuite.FirstPersonController
             //Get mouseX & mouseY values * mouseSensitivity
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
             float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+            if (mouseX == 0)
+                mouseX = -Input.GetAxis("ControllerUp") * mouseSensitivity/2;
+            if (mouseY == 0)
+                mouseY = Input.GetAxis("ControllerTurn") * mouseSensitivity/2;
+
             if (mouseY + MouseYSum >= 75)
             {
                 transform.localEulerAngles = new Vector3(-75, transform.localEulerAngles.y, transform.localEulerAngles.z);

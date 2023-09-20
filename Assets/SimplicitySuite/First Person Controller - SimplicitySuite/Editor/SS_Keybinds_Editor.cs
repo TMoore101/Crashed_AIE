@@ -18,16 +18,25 @@ namespace SimplicitySuite.FirstPersonController
         private SerializedProperty serializedKeybinds;
         private List<Keybind> keybindDictionary;
 
+        //Controller bind properties
+        private SerializedProperty serializedControllerBinds;
+        private List<JoystickBind> controllerBindDictionary;
+
         //Directory variables
         private string directory;
         private string keybindsFileName = "keybinds.json";
 
         private int arraySize;
+        private int controllerArraySize;
 
         private void OnEnable()
         {
             //Get the list of all keybinds
             serializedKeybinds = serializedObject.FindProperty("keybinds");
+
+            //Get the list of all controller binds
+            serializedControllerBinds = serializedObject.FindProperty("joystickBinds");
+            controllerArraySize = serializedControllerBinds.arraySize;
 
             arraySize = serializedKeybinds.arraySize;
         }
@@ -40,6 +49,9 @@ namespace SimplicitySuite.FirstPersonController
 
             //Display list of all keybinds
             EditorGUILayout.PropertyField(serializedKeybinds);
+
+            //Display list of all controller binds
+            EditorGUILayout.PropertyField(serializedControllerBinds);
 
             if (EditorGUI.EndChangeCheck())
             {
@@ -61,11 +73,30 @@ namespace SimplicitySuite.FirstPersonController
                     serializedKeybinds.GetArrayElementAtIndex(serializedKeybinds.arraySize - 1).FindPropertyRelative("key").intValue = (int)KeyCode.None;
                 }
 
+                //Reset the controller bind dictionary
+                controllerBindDictionary = new List<JoystickBind>();
+                //Get all of the defined controller binds
+                for (int i = 0; i < serializedControllerBinds.arraySize; i++)
+                {
+                    SerializedProperty pair = serializedControllerBinds.GetArrayElementAtIndex(i);
+                    string name = pair.FindPropertyRelative("name").stringValue;
+                    string key = pair.FindPropertyRelative("key").stringValue;
+                    controllerBindDictionary.Add(new JoystickBind { name = name, key = key });
+                }
+
+                //Clear joystick bind values on a newly created joystick bind
+                if (serializedControllerBinds.arraySize > arraySize)
+                {
+                    serializedControllerBinds.GetArrayElementAtIndex(serializedControllerBinds.arraySize - 1).FindPropertyRelative("name").stringValue = "";
+                    serializedControllerBinds.GetArrayElementAtIndex(serializedControllerBinds.arraySize - 1).FindPropertyRelative("key").stringValue = "";
+                }
+
                 // Apply any changes to the serialized object
                 serializedObject.ApplyModifiedProperties();
             }
 
             arraySize = serializedKeybinds.arraySize;
+            controllerArraySize = serializedControllerBinds.arraySize;
 
             //Save keybinds button
             if (GUILayout.Button("Save Keybinds"))
