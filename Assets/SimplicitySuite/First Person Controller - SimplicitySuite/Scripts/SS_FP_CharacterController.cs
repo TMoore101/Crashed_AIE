@@ -208,7 +208,7 @@ namespace SimplicitySuite.FirstPersonController
                 else
                     inputZ += Time.deltaTime * (-Mathf.Sign(inputZ) * deceleration);
             }
-            Debug.Log(inputZ);
+
             //Increase inputX by the acceleration amount every second when the strafe keys are being held down
             if (Input.GetKey(keybinds.keybinds.Find(k => k.name == "moveRight").key) && inputX < 1 || sideAxis < 0 && inputX < 1)
                 inputX += Time.deltaTime * acceleration;
