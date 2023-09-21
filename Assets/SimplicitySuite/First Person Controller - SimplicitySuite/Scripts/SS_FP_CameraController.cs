@@ -34,26 +34,9 @@ namespace SimplicitySuite.FirstPersonController
             if (mouseY == 0)
                 mouseY = Input.GetAxis("ControllerTurn") * mouseSensitivity/2;
 
-            if (mouseY + MouseYSum >= 75)
-            {
-                transform.localEulerAngles = new Vector3(-75, transform.localEulerAngles.y, transform.localEulerAngles.z);
-                mouseY = 0;
-                MouseYSum = 75;
-            }
-            else if (mouseY + MouseYSum <= -75)
-            {
-                transform.localEulerAngles = new Vector3(75, transform.localEulerAngles.y, transform.localEulerAngles.z);
-                mouseY = 0;
-                MouseYSum = -75;
-            }
-            else if (Cursor.lockState == CursorLockMode.Locked)
-            {
-                MouseYSum += mouseY;
-            }
-
             //Reverse xRotation and clamp it to 90 degrees up & down
             xRotation -= mouseY;
-            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+            xRotation = Mathf.Clamp(xRotation, -75f, 85f);
 
             //Rotate camera up & down
             transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
