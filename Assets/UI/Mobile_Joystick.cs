@@ -1,6 +1,9 @@
+using JetBrains.Annotations;
 using SimplicitySuite.FirstPersonController;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -13,13 +16,22 @@ public class Mobile_Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler,
     public float maxHandleDistance = 200;
     public float deadZone = 50;
 
+    public float rotationSpeed;
+    [SerializeField] private Transform player;
+    [SerializeField] private Transform cam;
+
+    private Vector2 touchStartPos;
+    private bool isRotating;
+    private Quaternion initialRotation;
+
+
     public SS_FP_CharacterController characterController;
 
     public void OnPointerDown(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            if (RectTransformUtility.RectangleContainsScreenPoint(joystick.GetComponent<RectTransform>(), eventData.position))
+            if (RectTransformUtility.RectangleContainsScreenPoint(joystick, eventData.position))
             {
                 isMoving = true;
             }
@@ -57,6 +69,43 @@ public class Mobile_Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler,
                     characterController.joystickZ = (clampedDelta.y);
                 else
                     characterController.joystickZ = 0;
+            }
+        }
+    }
+    void Update()
+    {
+        if (Input.touchCount == 1)
+        {
+            Touch touch = Input.GetTouch(0);
+
+            PointerEventData eventData = new PointerEventData(EventSystem.current);
+            eventData.position = touch.position;
+
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(eventData, results);
+
+            if (touch.phase == TouchPhase.Began)
+            {
+                if (results.Count == 0)
+                {
+                    touchStartPos = touch.position;
+                    isRotating = true;
+                }
+            }
+            else if (touch.phase == TouchPhase.Moved && isRotating)
+            {
+                Vector2 touchDelta = touch.position - touchStartPos;
+
+                // Rotate the camera locally around the X-axis based on touch input
+                cam.transform.localRotation *= Quaternion.Euler(-touchDelta.y * rotationSpeed, 0, 0);
+                //Rotate player left & right
+                player.Rotate(Vector3.up * touchDelta.x * rotationSpeed);
+
+                touchStartPos = touch.position;
+            }
+            else if (touch.phase == TouchPhase.Ended && isRotating)
+            {
+                isRotating = false;
             }
         }
     }

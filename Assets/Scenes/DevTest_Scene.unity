@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 55612507}
   - component: {fileID: 55612509}
   - component: {fileID: 55612508}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: JoystickHandle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -523,7 +523,8 @@ GameObject:
   - component: {fileID: 440729319}
   - component: {fileID: 440729318}
   - component: {fileID: 440729321}
-  m_Layer: 0
+  - component: {fileID: 440729322}
+  m_Layer: 9
   m_Name: Joystick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -605,7 +606,22 @@ MonoBehaviour:
   joystickHandle: {fileID: 55612507}
   maxHandleDistance: 200
   deadZone: 50
+  rotationSpeed: 0.1
+  player: {fileID: 4548004725698566454}
+  cam: {fileID: 5047317325242795402}
   characterController: {fileID: 4548004725698566441}
+--- !u!225 &440729322
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440729316}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &525316043
 GameObject:
   m_ObjectHideFlags: 0
@@ -2408,6 +2424,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bbf76c93d52f9b4a96e5b002f6fba5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &4548004725698566454 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4093743660204997768, guid: 87713d61ca690514eac8885684741a31,
+    type: 3}
+  m_PrefabInstance: {fileID: 5637173074651964161}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5047317325242795402 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4744973514288439348, guid: 87713d61ca690514eac8885684741a31,
+    type: 3}
+  m_PrefabInstance: {fileID: 5637173074651964161}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5637173074651964161
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2531,6 +2559,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4249314567621671314, guid: 87713d61ca690514eac8885684741a31,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4744973513373641907, guid: 87713d61ca690514eac8885684741a31,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -2609,6 +2642,11 @@ PrefabInstance:
     - target: {fileID: 8571657549309780513, guid: 87713d61ca690514eac8885684741a31,
         type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8971513273073785435, guid: 87713d61ca690514eac8885684741a31,
+        type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9147950250331217697, guid: 87713d61ca690514eac8885684741a31,
