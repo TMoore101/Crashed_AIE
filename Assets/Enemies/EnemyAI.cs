@@ -24,10 +24,13 @@ public class EnemyAI : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
+    private Enemy_WeaponHandler weaponHandler;
+
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        weaponHandler = GetComponent<Enemy_WeaponHandler>();
     }
 
     private void Update()
@@ -74,5 +77,7 @@ public class EnemyAI : MonoBehaviour
         agent.SetDestination(transform.position);
 
         transform.LookAt(player);
+
+        weaponHandler.Fire();
     }
 }

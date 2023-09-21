@@ -40,7 +40,6 @@ public class PlayerHealth : MonoBehaviour
     public float maxHealth;
     public Slider healthSlider;
     public GameObject deathScreen;
-    public GameObject firstButton;
 
     public float healingAmount = 5;
     public bool healing = true;
@@ -82,13 +81,11 @@ public class PlayerHealth : MonoBehaviour
     {
         if (Time.timeScale != 0)
         {
-            deathScreen.SetActive(true);
+            //deathScreen.SetActive(true);
             Time.timeScale = 0;
-            deathMessage.text = str;
+            //deathMessage.text = str;
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
-            EventSystem.current.SetSelectedGameObject(null);
-            EventSystem.current.SetSelectedGameObject(firstButton);
         }
     }
 }
