@@ -38,7 +38,10 @@ public class WeaponManager : MonoBehaviour
                 bullet.transform.Rotate(Vector3.right * 90);
             }
             else
+            {
                 bullet.transform.rotation = eyeSight.rotation;
+                bullet.transform.Rotate(Vector3.right * 90);
+            }
 
             //Get the direction the bullet is facing + a random Vector3 made from the spread radius
             Vector3 dir = bullet.transform.up + new Vector3(UnityEngine.Random.Range(-currentWeaponData.spreadRadius, currentWeaponData.spreadRadius), UnityEngine.Random.Range(-currentWeaponData.spreadRadius, currentWeaponData.spreadRadius), UnityEngine.Random.Range(-currentWeaponData.spreadRadius, currentWeaponData.spreadRadius));

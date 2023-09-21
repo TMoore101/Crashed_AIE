@@ -43,6 +43,8 @@ public class Player_WeaponHandler : MonoBehaviour
     [SerializeField]
     private AudioSource audioSource;
 
+    public bool isMobile;
+
     private void Start()
     {
         weaponManager = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<WeaponManager>();
@@ -122,35 +124,67 @@ public class Player_WeaponHandler : MonoBehaviour
         //Cooldowns
         weaponManager.Cooldowns(weaponList);
 
-        if (currentWeapon)
+        if (!isMobile)
         {
-            //Fire weapon
-            if (currentWeaponData.fireMode == 1 && !currentWeaponData.isCooling && !currentWeaponData.hasShot && Time.timeScale != 0)
+            if (currentWeapon)
             {
-                if (Input.GetMouseButton(0) || Input.GetAxis("Shoot") > 0)
+                //Fire weapon
+                if (currentWeaponData.fireMode == 1 && !currentWeaponData.isCooling && !currentWeaponData.hasShot && Time.timeScale != 0)
                 {
-                    weaponManager.Fire(bulletSpawn, eyeSight, currentWeaponData, eyeSight, playerBulletMat, true, cameraController);
-                    audioSource.pitch = UnityEngine.Random.Range(2, 3.5f);
-                    audioSource.clip = currentWeaponType == 1 ? audioClipsAR[UnityEngine.Random.Range(0, audioClipsAR.Length)] : audioClipsShotgun[UnityEngine.Random.Range(0, audioClipsShotgun.Length)];
-                    audioSource.Play();
+                    if (Input.GetMouseButton(0) || Input.GetAxis("Shoot") > 0)
+                    {
+                        weaponManager.Fire(bulletSpawn, eyeSight, currentWeaponData, eyeSight, playerBulletMat, true, cameraController);
+                        audioSource.pitch = UnityEngine.Random.Range(2, 3.5f);
+                        audioSource.clip = currentWeaponType == 1 ? audioClipsAR[UnityEngine.Random.Range(0, audioClipsAR.Length)] : audioClipsShotgun[UnityEngine.Random.Range(0, audioClipsShotgun.Length)];
+                        audioSource.Play();
+                    }
                 }
-            }
-            else if (currentWeaponData.fireMode == 2 && !currentWeaponData.isCooling && !currentWeaponData.hasShot && Time.timeScale != 0)
-            {
-                if (Input.GetMouseButtonDown(0) || Input.GetAxis("Shoot") > 0)
+                else if (currentWeaponData.fireMode == 2 && !currentWeaponData.isCooling && !currentWeaponData.hasShot && Time.timeScale != 0)
                 {
-                    weaponManager.Fire(bulletSpawn, eyeSight, currentWeaponData, eyeSight, playerBulletMat, true, cameraController);
-                    audioSource.pitch = UnityEngine.Random.Range(2, 3.5f);
-                    audioSource.clip = currentWeaponType == 1 ? audioClipsAR[UnityEngine.Random.Range(0, audioClipsAR.Length)] : audioClipsShotgun[UnityEngine.Random.Range(0, audioClipsShotgun.Length)];
-                    audioSource.Play();
+                    if (Input.GetMouseButtonDown(0) || Input.GetAxis("Shoot") > 0)
+                    {
+                        weaponManager.Fire(bulletSpawn, eyeSight, currentWeaponData, eyeSight, playerBulletMat, true, cameraController);
+                        audioSource.pitch = UnityEngine.Random.Range(2, 3.5f);
+                        audioSource.clip = currentWeaponType == 1 ? audioClipsAR[UnityEngine.Random.Range(0, audioClipsAR.Length)] : audioClipsShotgun[UnityEngine.Random.Range(0, audioClipsShotgun.Length)];
+                        audioSource.Play();
+                    }
                 }
-            }
 
-            //Aim weapon
-            if (Input.GetMouseButton(1) || Input.GetAxis("Aim") > 0)
+                //Aim weapon
+                if (Input.GetMouseButton(1) || Input.GetAxis("Aim") > 0)
+                    weaponManager.Aim(currentWeapon, weaponPosition, ADSPosition, currentWeaponData, true, true);
+                else
+                    weaponManager.Aim(currentWeapon, weaponPosition, ADSPosition, currentWeaponData, false, true);
+            }
+        }
+        else
+        {
+            if (isAiming)
+            {
                 weaponManager.Aim(currentWeapon, weaponPosition, ADSPosition, currentWeaponData, true, true);
+            }
             else
+            {
                 weaponManager.Aim(currentWeapon, weaponPosition, ADSPosition, currentWeaponData, false, true);
+            }
+            if (isShooting)
+            {
+                //Fire weapon
+                if (currentWeaponData.fireMode == 1 && !currentWeaponData.isCooling && !currentWeaponData.hasShot && Time.timeScale != 0)
+                {
+                    weaponManager.Fire(bulletSpawn, eyeSight, currentWeaponData, eyeSight, playerBulletMat, true, cameraController);
+                    audioSource.pitch = UnityEngine.Random.Range(2, 3.5f);
+                    audioSource.clip = currentWeaponType == 1 ? audioClipsAR[UnityEngine.Random.Range(0, audioClipsAR.Length)] : audioClipsShotgun[UnityEngine.Random.Range(0, audioClipsShotgun.Length)];
+                    audioSource.Play();
+                }
+                else if (currentWeaponData.fireMode == 2 && !currentWeaponData.isCooling && !currentWeaponData.hasShot && Time.timeScale != 0)
+                {
+                    weaponManager.Fire(bulletSpawn, eyeSight, currentWeaponData, eyeSight, playerBulletMat, true, cameraController);
+                    audioSource.pitch = UnityEngine.Random.Range(2, 3.5f);
+                    audioSource.clip = currentWeaponType == 1 ? audioClipsAR[UnityEngine.Random.Range(0, audioClipsAR.Length)] : audioClipsShotgun[UnityEngine.Random.Range(0, audioClipsShotgun.Length)];
+                    audioSource.Play();
+                }
+            }
         }
 
 
@@ -181,5 +215,31 @@ public class Player_WeaponHandler : MonoBehaviour
         Heat.value = currentWeaponData.coolingCDTimer / currentWeaponData.coolingCooldown;
 
         HeatCrosshair.value = 0.75f * (currentWeaponData.coolingCDTimer / currentWeaponData.coolingCooldown) + 0.25f;
+    }
+
+
+    private bool isAiming;
+    public void MobileAim()
+    {
+        if (currentWeapon)
+        {
+            isAiming = !isAiming;
+        }
+    }
+
+    private bool isShooting;
+    public void MobileShootDown()
+    {
+        if (currentWeapon)
+        {
+            isShooting = true;
+        }
+    }
+    public void MobileShootUp()
+    {
+        if (currentWeapon)
+        {
+            isShooting = false;
+        }
     }
 }
