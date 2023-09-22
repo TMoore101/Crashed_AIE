@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
             Destroy(this);
             return;
         }
+
+        DontDestroyOnLoad(this.gameObject);
     }
 
     public void Restart()

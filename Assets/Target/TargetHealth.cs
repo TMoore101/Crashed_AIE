@@ -23,6 +23,7 @@ public class TargetHealth : MonoBehaviour
             GameObject audio = new GameObject("SFX", typeof(AudioSource));
             audio.GetComponent<AudioSource>().outputAudioMixerGroup = GetComponent<AudioSource>().outputAudioMixerGroup;
             audio.GetComponent<AudioSource>().clip = DeathNoises[Random.Range(0, DeathNoises.Length)];
+            audio.GetComponent<AudioSource>().spatialBlend = 1;
             audio.GetComponent<AudioSource>().Play();
             Destroy(audio, audio.GetComponent<AudioSource>().clip.length);
 

@@ -37,77 +37,71 @@ public class AudioManager : MonoBehaviour
     {
         musicSource = GetComponent<AudioSource>();
 
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(0))
+        foundClip = false;
+        //Find the first available clip in the music list and set that to play
+        foreach (Albums album in music)
         {
-            foundClip = false;
-            //Find the first available clip in the music list and set that to play
-            foreach (Albums album in music)
+            foreach (AudioClip clip in album.albumMusic)
             {
-                foreach (AudioClip clip in album.albumMusic)
+                if (clip)
                 {
-                    if (clip)
-                    {
-                        musicSource.clip = clip;
-                        foundClip = true;
+                    musicSource.clip = clip;
+                    foundClip = true;
 
-                        albumText.text = album.albumName;
-                        musicText.text = clip.name;
-                        musicIndex = Array.IndexOf(album.albumMusic, clip);
-                        break;
-                    }
-                }
-                if (foundClip)
-                {
-                    albumImage.texture = album.albumCover.texture;
-                    albumIndex = Array.IndexOf(music, album);
-                    musicSource.Play();
+                    albumText.text = album.albumName;
+                    musicText.text = clip.name;
+                    musicIndex = Array.IndexOf(album.albumMusic, clip);
                     break;
                 }
             }
+            if (foundClip)
+            {
+                albumImage.texture = album.albumCover.texture;
+                albumIndex = Array.IndexOf(music, album);
+                musicSource.Play();
+                break;
+            }
+        }
 
-            //Set the volume sliders & values
-            if (PlayerPrefs.HasKey("masterVol"))
-            {
-                masterSlider.value = PlayerPrefs.GetFloat("masterVol");
-                mixer.SetFloat("masterVol", (masterSlider.value / 100) * 80 - 80);
-            }
-            if (PlayerPrefs.HasKey("musicVol"))
-            {
-                musicSlider.value = PlayerPrefs.GetFloat("musicVol");
-                mixer.SetFloat("musicVol", (musicSlider.value / 100) * 80 - 80);
-            }
-            if (PlayerPrefs.HasKey("sfxVol"))
-            {
-                sfxSlider.value = PlayerPrefs.GetFloat("sfxVol");
-                mixer.SetFloat("sfxVol", (sfxSlider.value / 100) * 80 - 80);
-            }
-            if (PlayerPrefs.HasKey("ambientVol"))
-            {
-                ambientSlider.value = PlayerPrefs.GetFloat("ambientVol");
-                mixer.SetFloat("ambientVol", (ambientSlider.value / 100) * 80 - 80);
-            }
+        //Set the volume sliders & values
+        if (PlayerPrefs.HasKey("masterVol"))
+        {
+            masterSlider.value = PlayerPrefs.GetFloat("masterVol");
+            mixer.SetFloat("masterVol", (masterSlider.value / 100) * 80 - 80);
+        }
+        if (PlayerPrefs.HasKey("musicVol"))
+        {
+            musicSlider.value = PlayerPrefs.GetFloat("musicVol");
+            mixer.SetFloat("musicVol", (musicSlider.value / 100) * 80 - 80);
+        }
+        if (PlayerPrefs.HasKey("sfxVol"))
+        {
+            sfxSlider.value = PlayerPrefs.GetFloat("sfxVol");
+            mixer.SetFloat("sfxVol", (sfxSlider.value / 100) * 80 - 80);
+        }
+        if (PlayerPrefs.HasKey("ambientVol"))
+        {
+            ambientSlider.value = PlayerPrefs.GetFloat("ambientVol");
+            mixer.SetFloat("ambientVol", (ambientSlider.value / 100) * 80 - 80);
         }
     }
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(0))
+        //If the music has stopped, play the next in the list
+        if (!musicSource.isPlaying)
         {
-            //If the music has stopped, play the next in the list
-            if (!musicSource.isPlaying)
-            {
-                if (musicIndex >= music[albumIndex].albumMusic.Length - 1)
-                    SearchForMusic(true);
-                else
-                    SearchForMusic(false);
-            }
-
-            //When a change in teh sliders occur, update the mix group to the same value
-            masterSlider.onValueChanged.AddListener(delegate { AudioValueChange("masterVol", masterSlider); });
-            musicSlider.onValueChanged.AddListener(delegate { AudioValueChange("musicVol", musicSlider); });
-            sfxSlider.onValueChanged.AddListener(delegate { AudioValueChange("sfxVol", sfxSlider); });
-            ambientSlider.onValueChanged.AddListener(delegate { AudioValueChange("ambientVol", ambientSlider); });
+            if (musicIndex >= music[albumIndex].albumMusic.Length - 1)
+                SearchForMusic(true);
+            else
+                SearchForMusic(false);
         }
+
+        //When a change in teh sliders occur, update the mix group to the same value
+        masterSlider.onValueChanged.AddListener(delegate { AudioValueChange("masterVol", masterSlider); });
+        musicSlider.onValueChanged.AddListener(delegate { AudioValueChange("musicVol", musicSlider); });
+        sfxSlider.onValueChanged.AddListener(delegate { AudioValueChange("sfxVol", sfxSlider); });
+        ambientSlider.onValueChanged.AddListener(delegate { AudioValueChange("ambientVol", ambientSlider); });
     }
 
     //Change audio values function
