@@ -21,8 +21,8 @@ public class EnemyAI : MonoBehaviour
     private bool alreadyAttacked;
 
     //States
-    public float sightRange, attackRange;
-    public bool playerInSightRange, playerInAttackRange;
+    public float sightRange, attackRange, stopRange;
+    public bool playerInSightRange, playerInAttackRange, playerInStopRange;
 
     private Enemy_WeaponHandler weaponHandler;
 
@@ -38,10 +38,12 @@ public class EnemyAI : MonoBehaviour
         //Check for sight and attack range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+        playerInStopRange = Physics.CheckSphere(transform.position, stopRange, whatIsPlayer);
 
         if (!playerInSightRange && !playerInAttackRange) Patroling();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInAttackRange && playerInSightRange) AttackPlayer();
+        if (playerInSightRange && playerInStopRange) StopChasing();
     }
 
     private void Patroling()
@@ -72,12 +74,14 @@ public class EnemyAI : MonoBehaviour
     {
         agent.SetDestination(player.position);
     }
-    private void AttackPlayer()
+    private void StopChasing()
     {
         agent.SetDestination(transform.position);
-
         transform.LookAt(player);
-
+    }
+    private void AttackPlayer()
+    {
         weaponHandler.Fire();
+        transform.LookAt(player);
     }
 }
