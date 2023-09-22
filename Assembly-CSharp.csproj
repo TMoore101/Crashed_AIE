@@ -73,6 +73,11 @@
     <Compile Include="Assets\SimplicitySuite\FPS_Guns_PS\Scripts\GunManager.cs" />
     <Compile Include="Assets\SimplicitySuite\FPS_Guns_PS\Classes\Gun_Attachment.cs" />
     <Compile Include="Assets\Enemies\Enemy_WeaponHandler.cs" />
+    <Compile Include="Assets\Enemies\Spawner\Scripts\Pod_Spawner.cs" />
+    <Compile Include="Assets\UI\Main Menu\MainMenu.cs" />
+    <Compile Include="Assets\UI\Main Menu\Options.cs" />
+    <Compile Include="Assets\UI\Main Menu\ScrollingText.cs" />
+    <Compile Include="Assets\Managers\AudioManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
